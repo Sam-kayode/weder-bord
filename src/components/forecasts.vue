@@ -49,36 +49,73 @@
 
     <div class="f-stats mt-3 p-3">
       <div class="f-stat">
-        <h5>Wind Stats</h5>
+        <h5>Wind Stats</h5><img src="@/assets/wind-stat.png" class="wst-img" alt="">
         <span class="font-weight-bold w-speed">7.7</span
         ><span class="unt">km/h</span>
         <div class="mt-1">WSW</div>
       </div>
       <div class="f-stat">
         <h5>Sunrise and Sunset</h5>
-        <span class="font-weight-bold w-speed">7.7</span
-        ><span class="unt">km/h</span>
-        <div class="mt-1">WSW</div>
+        <div class="text-center">
+          <span class="sunrise"
+            ><b-icon
+              icon="arrow-up-circle-fill"
+              variant="warning"
+              class="h1 sunrise m-0"
+            ></b-icon
+          ></span>
+
+          <span class="sunrise-t font-weight-bold">6.48pm</span>
+        </div>
+        <div class="text-center mt-2">
+          <span class="sunset"
+            ><b-icon
+              icon="arrow-down-circle-fill"
+              variant="warning"
+              class="h1 sunrise m-0"
+            ></b-icon
+          ></span>
+
+          <span class="sunrise-t font-weight-bold">6.48pm</span>
+        </div>
       </div>
       <div class="f-stat">
         <h5>Visibility</h5>
 
         <span class="font-weight-bold w-speed">7.7</span
-        ><span class="unt">km/h</span>
-        <div class="mt-1">WSW</div>
+        ><span class="unt">km</span>
       </div>
       <div class="f-stat">
-        <h5>Humidity</h5>
+        <h5>Humidity</h5><img src="@/assets/humidity.png" class="wst-img mr-1" alt="">
 
         <span class="font-weight-bold w-speed">7.7</span
-        ><span class="unt">km/h</span>
-        <div class="mt-1">WSW</div>
+        ><span class="unt">%</span>
+        
       </div>
       <div class="f-stat">
         <h5>UV Index</h5>
-        <span class="font-weight-bold w-speed">7.7</span
-        ><span class="unt">km/h</span>
-        <div class="mt-1">WSW</div>
+
+        <VueSvgGauge
+          :start-angle="-110"
+          :end-angle="110"
+          :value="UvIndex"
+          :separator-step="3"
+          :min="0"
+          :max="15"
+          :gauge-color="[
+            { offset: 0, color: '#347AB0' },
+            { offset: 100, color: '#8CDFAD' },
+          ]"
+          :scale-interval="0.1"
+        >
+          <span class="min">3</span>
+          <span class="min2">6</span>
+          <span class="max1">9</span>
+          <span class="max2">12</span>
+          <div class="inner-text">
+            <span> <b>7</b></span>
+          </div>
+        </VueSvgGauge>
       </div>
       <div class="f-stat">
         <h5>Wind Stats</h5>
@@ -97,6 +134,7 @@ export default {
   data() {
     return {
       active_el: 0,
+      UvIndex: 7,
     };
   },
   components: {
@@ -119,10 +157,12 @@ export default {
   display: flex;
   background-color: rgba(207, 207, 207, 0.486);
   position: relative;
-  overflow-y: scroll;
+  overflow-x: scroll;
+  
   scroll-behavior: smooth;
   z-index: 2;
   padding: 30px 0px 10px 0px;
+  margin:auto;
 }
 
 .f-stats {
@@ -133,6 +173,9 @@ export default {
   transition: 0.5s ease-out;
 }
 
+.wst-img{
+  width:40px
+}
 .f-stat {
   background-color: white;
   width: 150px;
@@ -141,6 +184,43 @@ export default {
   border-radius: 20px;
   transition: 0.5s ease-out;
   font-size: 17px;
+
+  h5 {
+    font-size: 15px;
+  }
+
+  .sunrise {
+    height: 25px;
+  }
+  .sunrise-t {
+    height: 25px;
+  }
+  svg {
+    height: 90px;
+  }
+
+  .min {
+    position: relative;
+    top: 70px;
+    right: 20px;
+  }
+
+  .min2 {
+    position: relative;
+    right: 10px;
+    top: 50px;
+  }
+  .max1 {
+    position: relative;
+    left: 15px;
+    top: 50px;
+  }
+
+  .max2 {
+    position: relative;
+    top: 70px;
+    left: 20px;
+  }
 }
 
 .active {
@@ -163,9 +243,22 @@ export default {
       background-color: rgba(3, 9, 20, 0.575);
     }
   }
-  .f-stat{
-          background-color: rgba(38, 53, 73, 0.747);
+  .f-stat {
+    background-color: rgba(38, 53, 73, 0.747);
+  }
+}
 
+.inner-text {
+  // allow the text to take all the available space in the svg on top of the gauge
+  width: 50px;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+
+  span {
+    max-width: 100px;
+    font-size: 70px;
+    // ...
   }
 }
 </style>
