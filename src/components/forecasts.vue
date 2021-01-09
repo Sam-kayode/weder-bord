@@ -2,7 +2,7 @@
   <div class="fcsts-cont">
     <h3 class="mt-4 font-weight-bold">Weather Forecast</h3>
     <h4 class="font-weight-bold">Lagos, Nigeria</h4>
-    <div class="fcsts pr-5">
+    <div class="fcsts pr-5 pr-md-0">
       <div
         class="mb-4 mx-3 pl-2"
         @click="activate(1)"
@@ -162,7 +162,7 @@ export default {
   display: flex;
   background-color: rgba(207, 207, 207, 0.486);
   position: relative;
-  overflow-x: scroll;
+  overflow-x:auto;
 
   scroll-behavior: smooth;
   z-index: 2;
