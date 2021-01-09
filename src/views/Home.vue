@@ -35,13 +35,13 @@
           </b-row>
 
           <div class="main-fcst mt-3">
-            <div class="mx-auto mb-4"><forecast /></div>
-            <div class="mx-auto mb-4"><forecast /></div>
-            <div class="mx-auto mb-4"><forecast /></div>
-            <div class="mx-auto mb-4"><forecast /></div>
-            <div class="mx-auto mb-4"><forecast /></div>
-            <div class="mx-auto mb-4"><forecast /></div>
-            <div class="mx-auto mb-4"><forecast /></div>
+            <div class="mx-auto mb-4"><forecast class="fc" /></div>
+            <div class="mx-auto mb-4"><forecast class="fc" /></div>
+            <div class="mx-auto mb-4"><forecast class="fc" /></div>
+            <div class="mx-auto mb-4"><forecast class="fc" /></div>
+            <div class="mx-auto mb-4"><forecast class="fc" /></div>
+            <div class="mx-auto mb-4"><forecast class="fc" /></div>
+            <div class="mx-auto mb-4"><forecast class="fc" /></div>
           </div>
 
           <div class="today mt-md-4 mb-5">
@@ -50,14 +50,14 @@
             </h5>
             <div class="t-stats mt-4">
               <div class="stat">
-                <h5>Wind Stats</h5>
+                <h6>Wind Stats</h6>
                 <img src="@/assets/wind-stat.png" class="wst-img" alt="" />
                 <span class="font-weight-bold w-speed">7.7</span
                 ><span class="unt">km/h</span>
                 <div class="mt-1">WSW</div>
               </div>
               <div class="stat">
-                <h5>Sunrise and Sunset</h5>
+                <h6>Sunrise and Sunset</h6>
                 <img src="@/assets/sun.png" class="wst-img" alt="" />
                 <div class="text-center">
                   <span class="sunrise"
@@ -83,16 +83,14 @@
                 </div>
               </div>
               <div class="stat">
-                <h5>Visibility</h5>
-
-                <h5>Visibility</h5>
+                <h6>Visibility</h6>
                 <img src="@/assets/visibility.png" class="vst-img" alt="" />
 
                 <span class="font-weight-bold w-speed">7.7</span
                 ><span class="unt">km</span>
               </div>
               <div class="stat">
-                <h5>Humidity</h5>
+                <h6>Humidity</h6>
                 <div>
                   <img
                     src="@/assets/humidity.png"
@@ -105,9 +103,9 @@
                 ><span class="unt">%</span>
               </div>
               <div class="stat">
-                <h5>UV Index</h5>
+                <h6>UV Index</h6>
                 <VueSvgGauge
-                class="pb-4"
+                  class="pb-4"
                   :start-angle="-110"
                   :end-angle="110"
                   :value="6"
@@ -130,7 +128,7 @@
                 </VueSvgGauge>
               </div>
               <div class="stat">
-                <h5>Wind Stats</h5>
+                <h6>Wind Stats</h6>
                 <span class="font-weight-bold w-speed">7.7</span
                 ><span class="unt">km/h</span>
                 <div class="mt-1">WSW</div>
@@ -242,6 +240,13 @@ export default {
 
 .board {
 }
+
+.fc:hover {
+  transform: scale(1.1);
+  transition: 0.5s ease-out;
+  cursor: pointer;
+}
+
 .wst-img {
   width: 40px;
 }

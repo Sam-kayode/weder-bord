@@ -234,13 +234,25 @@ export default {
 }
 
 .active {
-  transform: scale(1.29);
+  transform: scale(1.25);
   transition: 0.5s ease-out;
   border-radius: 16px;
   .fc {
     background-color: rgba(0, 0, 0, 0.192);
   }
+  
+  .fc:hover{
+       transform: scale(1);
+
+  }
 }
+
+.fc:hover{
+   transform: scale(1.1);
+  transition: 0.5s ease-out;
+
+}
+
 .dark {
   .fcsts {
     background-color: rgba(38, 53, 73, 0.911);
