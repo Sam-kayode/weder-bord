@@ -49,13 +49,15 @@
 
     <div class="f-stats mt-3 p-3">
       <div class="f-stat">
-        <h5>Wind Stats</h5><img src="@/assets/wind-stat.png" class="wst-img" alt="">
+        <h5>Wind Stats</h5>
+        <img src="@/assets/wind-stat.png" class="wst-img" alt="" />
         <span class="font-weight-bold w-speed">7.7</span
         ><span class="unt">km/h</span>
         <div class="mt-1">WSW</div>
       </div>
       <div class="f-stat">
         <h5>Sunrise and Sunset</h5>
+        <img src="@/assets/sun.png" class="wst-img" alt="" />
         <div class="text-center">
           <span class="sunrise"
             ><b-icon
@@ -81,16 +83,19 @@
       </div>
       <div class="f-stat">
         <h5>Visibility</h5>
+        <img src="@/assets/visibility.png" class="vst-img" alt="" />
 
         <span class="font-weight-bold w-speed">7.7</span
         ><span class="unt">km</span>
       </div>
       <div class="f-stat">
-        <h5>Humidity</h5><img src="@/assets/humidity.png" class="wst-img mr-1" alt="">
+        <h5>Humidity</h5>
+        <div>
+          <img src="@/assets/humidity.png" class="wst-img mr-1" alt="" />
+        </div>
 
         <span class="font-weight-bold w-speed">7.7</span
         ><span class="unt">%</span>
-        
       </div>
       <div class="f-stat">
         <h5>UV Index</h5>
@@ -158,11 +163,11 @@ export default {
   background-color: rgba(207, 207, 207, 0.486);
   position: relative;
   overflow-x: scroll;
-  
+
   scroll-behavior: smooth;
   z-index: 2;
   padding: 30px 0px 10px 0px;
-  margin:auto;
+  margin: auto;
 }
 
 .f-stats {
@@ -173,9 +178,14 @@ export default {
   transition: 0.5s ease-out;
 }
 
-.wst-img{
-  width:40px
+.wst-img {
+  width:40px;
 }
+
+.vst-img{
+  width:60px;
+}
+
 .f-stat {
   background-color: white;
   width: 150px;
