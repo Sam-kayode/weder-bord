@@ -59,9 +59,9 @@
           <li class="side-link" @click="toggle">
             <router-link to="/Forecast">Forecast</router-link>
           </li>
-           <li class="side-link" @click="toggle">
+          <!--  <li class="side-link" @click="toggle">
             <router-link to="/about">About</router-link>
-          </li>
+          </li> -->
         </ul>
       </div>
     </transition>
