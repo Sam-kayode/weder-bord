@@ -1,17 +1,13 @@
 <template>
   <div class="app" :class="mode">
-    <!--  <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
     <navbar class="nav-bar" />
-<toggle :mode="mode" @toggle="toggle"/>
+    <toggle :mode="mode" @toggle="toggle" />
     <router-view />
   </div>
 </template>
 <script>
 import navbar from "@/components/navbar.vue";
-import toggle from "@/components/toggle.vue"
+import toggle from "@/components/toggle.vue";
 export default {
   data() {
     return {
@@ -19,38 +15,36 @@ export default {
     };
   },
   components: {
-    navbar,toggle
+    navbar,
+    toggle,
   },
-   methods: {
-    toggle(){
-if (this.mode === "dark"){
-   this.mode="light"
-}
-else{
-  this.mode="dark";
-}
-    }
+  methods: {
+    toggle() {
+      if (this.mode === "dark") {
+        this.mode = "light";
+      } else {
+        this.mode = "dark";
+      }
+    },
   },
 };
 </script>
 <style lang="scss">
-.app{
+.app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-              transition: 0.35s ease-out;
-
+  transition: 0.35s ease-out;
+  overflow-x: hidden;
 }
 
 .dark {
   background: #162736;
-  color:rgba(255, 255, 255, 0.6);
-              transition: 0.35s ease-out;
-
+  color: rgba(255, 255, 255, 0.6);
+  transition: 0.35s ease-out;
 }
-
 
 #nav {
   padding: 30px;
@@ -65,9 +59,6 @@ else{
   color: #42b983;
 }
 
-
-.dark{
-
+.dark {
 }
-
 </style>

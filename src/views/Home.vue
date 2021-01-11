@@ -15,9 +15,7 @@
           </div>
 
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam rerum
-          labore inventore ullam! Voluptates nobis molestias distinctio eligendi
-          dolore? Impedit sunt ipsum modi autem officia incidunt enim
-          perferendis, corrupti aliquid.
+          labore inventore ullam! Voluptates
         </b-col>
         <b-col class="highlight px-md-5 pt-md-5" md="8">
           <b-row class="mb-3 mt-4 mt-md-5">
@@ -135,19 +133,10 @@
               </div>
             </div>
           </div>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti jk
-          consectetur quas repellendus numquam impedit error dolorem eveniet.
-          Incidunt repudiandae veritatis, minima saepe, recusandae eum facilis
-          nulla at reprehenderit expedita facere? Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Corrupti excepturi aliquid repellendus
-          mollitia nisi enim libero iure, accusantium necessitatibus. Itaque ut
-          dolorum illum dicta veritatis unde sequi facere iste tenetur? lorem
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Et quod esse,
-          reiciendis itaque repellat, tempora ex iure iste qui modi sapiente
-          ducimus sunt in? Sit soluta sed totam ut praesentium.
+     
         </b-col>
       </b-row>
-    </b-container>
+    </b-container><Footer />
   </div>
 </template>
 
@@ -156,6 +145,7 @@
 /* import HelloWorld from '@/components/HelloWorld.vue'
  */
 import searchBar from "@/components/searchBar.vue";
+import Footer from "@/components/footer.vue";
 import weatherIcon from "@/components/weather-icon.vue";
 import forecast from "@/components/forecast.vue";
 export default {
@@ -169,6 +159,7 @@ export default {
     searchBar,
     weatherIcon,
     forecast,
+    Footer,
   },
 };
 </script>
