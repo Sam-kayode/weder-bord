@@ -4,7 +4,7 @@
     <h3>Wederbord</h3>
     <p class="mt-3">Quick Links</p>
     <b-container>
-      <b-row>
+      <b-row class="pb-3">
         <b-col>Home</b-col>
         <b-col>Forecast</b-col>
         <b-col>About</b-col>
