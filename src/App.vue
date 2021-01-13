@@ -26,7 +26,9 @@ export default {
         this.mode = "dark";
       }
     },
-  },
+
+  } 
+ 
 };
 </script>
 <style lang="scss">

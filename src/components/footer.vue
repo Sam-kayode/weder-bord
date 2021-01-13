@@ -10,7 +10,9 @@
         <b-col>About</b-col>
       </b-row>
     </b-container>
-    <div class="copyright"> &#169; 2021 <span class="font-weight-bold">sam-kay</span></div>
+    <div class="copyright">
+      &#169; 2021 <span class="font-weight-bold">sam-kay</span>
+    </div>
   </div>
 </template>
 <script>
@@ -35,16 +37,18 @@ export default {
   margin-top: 30px;
 }
 
-.copyright{
-background-color:rgba(0, 0, 0, 0.226);
+.copyright {
+  background-color: rgba(0, 0, 0, 0.226);
 }
 
 .dark {
-    .footer{
-background-color:rgba(0, 0, 0, 0.363);
-    }
-    .copyright{
-  background: #162736;
-    }
+  .footer {
+    background-color: rgba(0, 0, 0, 0.363);
+  }
+  .copyright {
+    background: #162736;
+  }
 }
+
+
 </style>

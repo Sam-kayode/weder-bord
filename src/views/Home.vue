@@ -1,21 +1,36 @@
 <template>
-  <div>
+  <div class="home">
     <b-container fluid class="board">
       <b-row>
         <b-col class="current pt-2 pt-md-1 my-4" md="4">
-          <search-bar class="mt-5"></search-bar>
-          <div class="region pt-4">Lagos, Nigeria</div>
-          <div class="text-center">MONDAY, 16:00</div>
+          <search-bar class="mt-5" ></search-bar>
+          
+          <div class="region pt-4">{{ weather.name }}</div>
+           <h5 class="text-center font-weight-bold">{{ weather.current.dt | dateConvFull }}</h5>
+          <!--    <div class="region pt-4">Lagos,Nieria</div>
+ --> <!-- <span v-if="!load"><loader /></span> -->
+         
+         
           <weather-icon class="current-icon"></weather-icon>
+          <!-- to be reviewed -->
 
           <div class="temperature text-center">
-            <span class="temp-value">12</span>
+            <span class="temp-value">
+              <span v-if="weather != undefined">{{
+                Math.round(weather.current.temp) 
+              }}</span>
+            </span>
             <span class="unit"><sup>&#8451;</sup></span>
             <span class="unit" v-if="tempUnit"><sup>&#8457;</sup></span>
           </div>
+          
+          <p class="font-weight-bolder">
+            Feels like {{ Math.round(weather.current.feels_like) }}&#8451;
+          </p>
 
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam rerum
-          labore inventore ullam! Voluptates
+          <p class="font-weight-bolder">
+            {{ weather.current.weather[0].description }}
+          </p>
         </b-col>
         <b-col class="highlight px-md-5 pt-md-5" md="8">
           <b-row class="mb-3 mt-4 mt-md-5">
@@ -133,10 +148,9 @@
               </div>
             </div>
           </div>
-     
         </b-col>
-      </b-row>
-    </b-container><Footer />
+      </b-row> </b-container
+    ><Footer />
   </div>
 </template>
 
@@ -148,19 +162,39 @@ import searchBar from "@/components/searchBar.vue";
 import Footer from "@/components/footer.vue";
 import weatherIcon from "@/components/weather-icon.vue";
 import forecast from "@/components/forecast.vue";
+/* import loader from "@/components/loader.vue";
+ */
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "Home",
   data() {
     return {
       tempUnit: false,
-    };
+/*       load:true
+ */    };
   },
   components: {
     searchBar,
     weatherIcon,
     forecast,
     Footer,
+/*     loader,
+ */  },
+  methods: {
+    ...mapActions(["fetchWeather"]),
+  /*   loading(){
+        this.load=false;
+    } */
   },
+  created() {
+    this.fetchWeather([6.4550575, 3.3941795, "Lagos,Nigeria"]);
+  },
+  computed: mapGetters({ weather: "allWeather" }),
+  updated(){
+    this.load="false"
+  }
+
 };
 </script>
 <style lang="scss">
@@ -175,9 +209,12 @@ export default {
   font-weight: bold;
   font-family: sans-serif;
 }
-
 .unit {
   font-size: 70px;
+}
+.current{
+    min-height: 100vh;
+
 }
 
 .highlight {
@@ -219,6 +256,9 @@ export default {
   transition: 0.35s ease-out;
 }
 
+.region{
+  transition:0.9s ease-out;
+}
 .stat {
   background-color: white;
   width: 150px;
@@ -292,6 +332,11 @@ export default {
   }
 }
 @media (min-width: 768px) {
+  .home {
+    .footer {
+      display: none;
+    }
+  }
   .current {
     position: fixed !important;
     left: 0;

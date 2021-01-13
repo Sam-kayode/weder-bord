@@ -1,19 +1,68 @@
 <template>
   <div>
-    <form class="search-bar" action="">
-      <input type="search" placeholder="Search for places..." />
+    <form @submit.prevent="onSubmit" class="search-bar" action="">
+      <input
+        type="text"
+        placeholder="Search for places..."
+        v-model="location"
+      />
       <!--   <i class="fa fa-search"></i>
  -->
-      <b-icon icon="search" class="fa fa-search"></b-icon>
+      <b-icon icon="search" class="fa fa-search" v-on:click="onSubmit()"></b-icon>
     </form>
   </div>
 </template>
 
 <script>
-export default {
+import { mapActions } from "vuex";
+/*  import axios from 'axios'
+ */ export default {
   name: "searchBar",
-  props: {
-    msg: String,
+  data() {
+    return {
+      location: "",
+      point: {},
+      long: 3.3941795,
+      lat: 6.4550575,
+      name: "",
+    };
+  },
+  props: {},
+  methods: {
+    ...mapActions(["fetchWeather"]),
+
+    async onSubmit() {
+      
+      var location = `${encodeURIComponent(this.location)}`;
+      console.log(location);
+      //geocode fetch API
+      /*   try
+       {const response = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${location}&key=a81962bde9cb4591ad703a830a1bf74c&pretty=1`)
+       this.point = response
+      console.log(this.point)
+       }catch(err){console.log(err)}   */
+      /* .then(response => (this.point = response)) */
+
+      let response = await fetch(
+        `https://api.opencagedata.com/geocode/v1/json?q=${location}&key=a81962bde9cb4591ad703a830a1bf74c&pretty=1`
+      );
+      this.point = await response.json();
+      console.log(this.point);
+
+      this.setResults(this.point);
+      /*  .then((result) => {
+          return result.json();
+        })
+        .then(this.setResults, console.log(this.point)); */
+
+      this.fetchWeather([this.lat, this.long, this.name]);
+    },
+    setResults(point) {
+      this.lat = point.results[0].geometry.lat;
+      this.long = point.results[0].geometry.lng;
+      this.name = point.results[0].formatted;
+      console.log(this.lat);
+    },
   },
 };
 </script>
@@ -81,20 +130,19 @@ form .fa:hover {
   transform: scale(1.15);
 }
 
+
+
 .dark {
   .search-bar {
     border: 4px solid rgba(255, 255, 255, 0.427);
-              transition: 0.35s ease-out;
-    ;
+    transition: 0.35s ease-out;
     input {
       background-color: rgba(255, 255, 255, 0.8);
-              transition: 0.35s ease-out;
-      ;
+      transition: 0.35s ease-out;
     }
   }
 }
 /* dark mode styling */
-
 
 /*  */
 </style>
