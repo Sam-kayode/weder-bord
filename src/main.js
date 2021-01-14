@@ -14,6 +14,9 @@ import VueSvgGauge from 'vue-svg-gauge'
 /* filters entry */
 import  "@/helpers/filters";
 
+ /* imported an external scss file to make it global */
+import "@/assets/ext_css/svg-icon.scss";
+
 
 Vue.use(VueSvgGauge)
 Vue.use(BootstrapVue)

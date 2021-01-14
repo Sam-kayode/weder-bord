@@ -1,54 +1,4 @@
-<template>
-  <div>
-    <div class="showbox">
-      <div class="day" v-if="(weather.current.dt>=weather.current.sunrise) && (weather.current.dt<=weather.current.sunset) ">
-        <div class="div-icons">
-          <Clear v-if="weather.current.weather[0].main == 'Clear'" />
-          <Clear v-if="weather.current.weather[0].main == 'Mist'" />
-          <Clear v-if="weather.current.weather[0].main == 'smoke'" />
-          <Clear v-if="weather.current.weather[0].main == 'Haze'" />
-          <Clear v-if="weather.current.weather[0].main == 'Dust'" />
-          <Clear v-if="weather.current.weather[0].main == 'Ash'" />
-          <Clouds v-if="weather.current.weather[0].main == 'Clouds'" />
-          <Snow v-if="weather.current.weather[0].main == 'Snow'" />
-          <Rain v-if="weather.current.weather[0].main == 'Rain'" />
-        </div>
-      </div>
-
-      <div class="night" v-else>
-        <!-- cloudy -->
-        <Clouds v-if="weather.current.weather[0].main == 'Clouds'" />
-        <Clouds v-if="weather.current.weather[0].main == 'Clear'" />
-        <Snow v-if="weather.current.weather[0].main == 'Snow'" />
-        <Rain v-if="weather.current.weather[0].main == 'Rain'" />
-      </div>
-    </div>
-  </div>
-</template>
-<script>
-import { mapGetters } from "vuex";
-import Clear from "@/components/weather-icons/clear.vue";
-import Clouds from "@/components/weather-icons/clouds.vue";
-import Rain from "@/components/weather-icons/rain.vue";
-import Snow from "@/components/weather-icons/snow.vue";
-export default {
-  name: "weather-icon",
-  data() {
-    return {
-      value: false,
-    };
-  },
-  components: {
-    Clear,
-    Clouds,
-    Snow,
-    Rain,
-  },
-  computed: mapGetters({ weather: "allWeather" }),
-};
-</script>
-<style lang="scss">
-/* $color-sun: #edc951;
+$color-sun: #edc951;
 $color-cloud: #00a0b0;
 $color-cloud-light: #00cee3;
 $color-cloud-dark: #008997;
@@ -76,10 +26,9 @@ a {
   margin: 10px auto 10px auto;
   max-width: 450px !important;
 }
-.showbox svg {
-  height: 300px;
+/* .showbox svg {
   width: 100%;
-}
+} */
 
 @media (max-width: 576px) {
   .showbox svg {
@@ -346,5 +295,4 @@ a {
     stroke-dashoffset: -210;
     opacity: 0;
   }
-} */
-</style>
+}

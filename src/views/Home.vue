@@ -3,34 +3,38 @@
     <b-container fluid class="board">
       <b-row>
         <b-col class="current pt-2 pt-md-1 my-4" md="4">
-          <search-bar class="mt-5" ></search-bar>
-          
+          <search-bar class="mt-5"></search-bar>
+
           <div class="region pt-4">{{ weather.name }}</div>
-           <h5 class="text-center font-weight-bold">{{ weather.current.dt | dateConvFull }}</h5>
+          <h5 class="text-center font-weight-bold">
+            {{ weather.current.dt | dateConvFull }}
+          </h5>
           <!--    <div class="region pt-4">Lagos,Nieria</div>
- --> <!-- <span v-if="!load"><loader /></span> -->
-         
-         
-          <weather-icon class="current-icon"></weather-icon>
-          <!-- to be reviewed -->
+ -->
+          <span v-if="loading"><loader /></span>
 
-          <div class="temperature text-center">
-            <span class="temp-value">
-              <span v-if="weather != undefined">{{
-                Math.round(weather.current.temp) 
-              }}</span>
-            </span>
-            <span class="unit"><sup>&#8451;</sup></span>
-            <span class="unit" v-if="tempUnit"><sup>&#8457;</sup></span>
+          <div v-if="!loading">
+            <weather-icon class="current-icon"></weather-icon>
+            <!-- to be reviewed -->
+
+            <div class="temperature text-center">
+              <span class="temp-value">
+                <span v-if="weather != undefined">{{
+                  Math.round(weather.current.temp)
+                }}</span>
+              </span>
+              <span class="unit"><sup>&#8451;</sup></span>
+              <span class="unit" v-if="tempUnit"><sup>&#8457;</sup></span>
+            </div>
+
+            <p class="font-weight-bolder">
+              Feels like {{ Math.round(weather.current.feels_like) }}&#8451;
+            </p>
+
+            <p class="font-weight-bolder">
+              {{ weather.current.weather[0].description }}
+            </p>
           </div>
-          
-          <p class="font-weight-bolder">
-            Feels like {{ Math.round(weather.current.feels_like) }}&#8451;
-          </p>
-
-          <p class="font-weight-bolder">
-            {{ weather.current.weather[0].description }}
-          </p>
         </b-col>
         <b-col class="highlight px-md-5 pt-md-5" md="8">
           <b-row class="mb-3 mt-4 mt-md-5">
@@ -40,21 +44,28 @@
               </h5></b-col
             >
             <b-col class="text-right d-none d-md-block">
-              <span class="CF-button text-right p-0 mt-3 mb-5">
+             <!--  <span class="CF-button text-right p-0 mt-3 mb-5">
                 <span class="fh mr-3">&#8451;</span>
                 <span class="cs">&#8457;</span>
-              </span></b-col
+              </span> --></b-col
             >
           </b-row>
 
           <div class="main-fcst mt-3">
-            <div class="mx-auto mb-4"><forecast class="fc" /></div>
-            <div class="mx-auto mb-4"><forecast class="fc" /></div>
-            <div class="mx-auto mb-4"><forecast class="fc" /></div>
-            <div class="mx-auto mb-4"><forecast class="fc" /></div>
-            <div class="mx-auto mb-4"><forecast class="fc" /></div>
-            <div class="mx-auto mb-4"><forecast class="fc" /></div>
-            <div class="mx-auto mb-4"><forecast class="fc" /></div>
+            <div
+              class="mx-auto mb-4"
+              v-for="forecast in weather.daily"
+              :key="forecast.dt"
+            >
+              <forecast
+                :day="forecast.dt | dayConvFull"
+                :main="forecast.weather[0].main"
+                class="fc"
+                :temp="Math.round(forecast.temp.day*10)/10"
+                :evening_temp="Math.round(forecast.temp.eve*10)/10"
+              />
+            </div>
+      
           </div>
 
           <div class="today mt-md-4 mb-5">
@@ -65,9 +76,10 @@
               <div class="stat">
                 <h6>Wind Stats</h6>
                 <img src="@/assets/wind-stat.png" class="wst-img" alt="" />
-                <span class="font-weight-bold w-speed">7.7</span
-                ><span class="unt">km/h</span>
-                <div class="mt-1">WSW</div>
+                <span class="font-weight-bold w-speed">{{
+                  Math.round(weather.current.wind_speed * 10) / 10
+                }}</span
+                ><span class="unt">m/s</span>
               </div>
               <div class="stat">
                 <h6>Sunrise and Sunset</h6>
@@ -81,7 +93,7 @@
                     ></b-icon
                   ></span>
 
-                  <span class="sunrise-t font-weight-bold">6.48pm</span>
+                  <span class="sunrise-t font-weight-bold">{{weather.current.sunrise|wkdayConvFull}}</span>
                 </div>
                 <div class="text-center mt-2">
                   <span class="sunset"
@@ -92,15 +104,17 @@
                     ></b-icon
                   ></span>
 
-                  <span class="sunrise-t font-weight-bold">6.48pm</span>
+                  <span class="sunrise-t font-weight-bold">{{weather.current.sunset|wkdayConvFull}}</span>
                 </div>
               </div>
-              <div class="stat">
+              <div class="stat visibility">
                 <h6>Visibility</h6>
                 <img src="@/assets/visibility.png" class="vst-img" alt="" />
 
-                <span class="font-weight-bold w-speed">7.7</span
-                ><span class="unt">km</span>
+                <span class="font-weight-bold w-speed">{{
+                  Math.round(weather.current.visibility * 10) / 10
+                }}</span
+                ><span class="unt">m</span>
               </div>
               <div class="stat">
                 <h6>Humidity</h6>
@@ -112,16 +126,18 @@
                   />
                 </div>
 
-                <span class="font-weight-bold w-speed">7.7</span
+                <span class="font-weight-bold w-speed">{{
+                  weather.current.humidity
+                }}</span
                 ><span class="unt">%</span>
               </div>
-              <div class="stat">
+              <div class="stat UV ">
                 <h6>UV Index</h6>
                 <VueSvgGauge
                   class="pb-4"
                   :start-angle="-110"
                   :end-angle="110"
-                  :value="6"
+                  :value="weather.current.uvi"
                   :separator-step="3"
                   :min="0"
                   :max="15"
@@ -136,15 +152,19 @@
                   <span class="max1">9</span>
                   <span class="max2">12</span>
                   <div class="inner-text">
-                    <span class=""><b>7</b></span>
+                    <span class="uvi"
+                      ><b>{{ Math.round(weather.current.uvi) }}</b></span
+                    >
                   </div>
                 </VueSvgGauge>
               </div>
-              <div class="stat">
-                <h6>Wind Stats</h6>
-                <span class="font-weight-bold w-speed">7.7</span
-                ><span class="unt">km/h</span>
-                <div class="mt-1">WSW</div>
+              <div class="stat visibility">
+                <h6 class="mb-5">Pressure</h6>
+
+                <span class="font-weight-bold w-speed">{{
+                  weather.current.pressure
+                }}</span
+                ><span class="unt">hPa</span>
               </div>
             </div>
           </div>
@@ -162,8 +182,8 @@ import searchBar from "@/components/searchBar.vue";
 import Footer from "@/components/footer.vue";
 import weatherIcon from "@/components/weather-icon.vue";
 import forecast from "@/components/forecast.vue";
-/* import loader from "@/components/loader.vue";
- */
+import loader from "@/components/loader.vue";
+
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -171,19 +191,24 @@ export default {
   data() {
     return {
       tempUnit: false,
-/*       load:true
- */    };
+      loading: false,
+      /*       load:true
+       */
+    };
   },
   components: {
     searchBar,
     weatherIcon,
     forecast,
     Footer,
-/*     loader,
- */  },
+    loader,
+  },
   methods: {
+    load() {
+      this.loading = true;
+    },
     ...mapActions(["fetchWeather"]),
-  /*   loading(){
+    /*   loading(){
         this.load=false;
     } */
   },
@@ -191,10 +216,6 @@ export default {
     this.fetchWeather([6.4550575, 3.3941795, "Lagos,Nigeria"]);
   },
   computed: mapGetters({ weather: "allWeather" }),
-  updated(){
-    this.load="false"
-  }
-
 };
 </script>
 <style lang="scss">
@@ -212,15 +233,21 @@ export default {
 .unit {
   font-size: 70px;
 }
-.current{
-    min-height: 100vh;
-
+.current {
+  min-height: 100vh;
 }
 
+.UV .uvi {
+  font-size: 65px;
+}
 .highlight {
   background-color: rgb(236, 236, 236);
   right: 0;
   min-height: 100vh;
+
+  h6{
+    font-weight:bolder;
+  }
 }
 
 .fh,
@@ -234,6 +261,10 @@ export default {
 
 .w-speed {
   font-size: 40px;
+}
+
+.visibility .w-speed {
+  font-size: 30px;
 }
 
 .unt {
@@ -256,8 +287,8 @@ export default {
   transition: 0.35s ease-out;
 }
 
-.region{
-  transition:0.9s ease-out;
+.region {
+  transition: 0.9s ease-out;
 }
 .stat {
   background-color: white;
@@ -283,7 +314,8 @@ export default {
 }
 
 .vst-img {
-  width: 60px;
+  width: 80px;
+  height: 60px;
 }
 
 .sunrise {
