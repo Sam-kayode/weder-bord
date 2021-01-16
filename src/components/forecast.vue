@@ -71,7 +71,6 @@ export default {
   background-color: rgb(255, 255, 255);
   transition: 0.35s ease-out;
   width:140px;
-  
 }
 $color-sun: #edc951;
 $color-cloud: #00a0b0;
@@ -369,9 +368,8 @@ a {
 
 @media (max-width: 576px) {
   .forecast {
-    font-size: 10px;
     transition: 0.35s ease-out;
-    width: 90px;
+  
     svg {
       width: 100%;
       height: 50px;

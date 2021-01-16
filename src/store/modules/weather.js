@@ -24,15 +24,22 @@ const actions = {
         if (loc[2]) {
           response.data.name = loc[2];
         }
+     
         const milliseconds = response.data.current.dt * 1000;
         const dateObject = new Date(milliseconds);
         const day = dateObject.toLocaleString("en-US", { hour: "numeric" });
         const daytime= day.includes("PM")
          response.data.daytime= daytime;
 
-        commit("setWeather", response.data);
-        console.log(response.data);
-        console.log(response.data.current.weather[0].main)
+
+         const newResponse= response.data
+         /* to remive one of the forecast values */
+             newResponse.daily.shift()
+
+             /* ---------------------- */
+        commit("setWeather", newResponse);
+        console.log(newResponse);
+        console.log(newResponse.current.weather[0].main)
       });
     /*  const result = await fetch(
       `${url_base}onecall?lat=${lat}&lon=${long}&exclude=minutely,hourly,alerts&units=metric&appid=${api_key}`

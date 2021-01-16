@@ -32,7 +32,7 @@ a {
 
 @media (max-width: 576px) {
   .showbox svg {
-    height: 250px;
+   max-height: 250px;
   }
 }
 

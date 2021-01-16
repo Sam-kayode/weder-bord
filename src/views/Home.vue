@@ -11,30 +11,27 @@
           </h5>
           <!--    <div class="region pt-4">Lagos,Nieria</div>
  -->
-          <span v-if="loading"><loader /></span>
 
-          <div v-if="!loading">
-            <weather-icon class="current-icon"></weather-icon>
-            <!-- to be reviewed -->
+          <weather-icon class="current-icon"></weather-icon>
+          <!-- to be reviewed -->
 
-            <div class="temperature text-center">
-              <span class="temp-value">
-                <span v-if="weather != undefined">{{
-                  Math.round(weather.current.temp)
-                }}</span>
-              </span>
-              <span class="unit"><sup>&#8451;</sup></span>
-              <span class="unit" v-if="tempUnit"><sup>&#8457;</sup></span>
-            </div>
-
-            <p class="font-weight-bolder">
-              Feels like {{ Math.round(weather.current.feels_like) }}&#8451;
-            </p>
-
-            <p class="font-weight-bolder">
-              {{ weather.current.weather[0].description }}
-            </p>
+          <div class="temperature text-center">
+            <span class="temp-value">
+              <span v-if="weather != undefined">{{
+                Math.round(weather.current.temp)
+              }}</span>
+            </span>
+            <span class="unit"><sup>&#8451;</sup></span>
+            <span class="unit" v-if="tempUnit"><sup>&#8457;</sup></span>
           </div>
+
+          <p class="font-weight-bolder">
+            Feels like {{ Math.round(weather.current.feels_like) }}&#8451;
+          </p>
+
+          <p class="font-weight-bolder">
+            {{ weather.current.weather[0].description }}
+          </p>
         </b-col>
         <b-col class="highlight px-md-5 pt-md-5" md="8">
           <b-row class="mb-3 mt-4 mt-md-5">
@@ -44,7 +41,7 @@
               </h5></b-col
             >
             <b-col class="text-right d-none d-md-block">
-             <!--  <span class="CF-button text-right p-0 mt-3 mb-5">
+              <!--  <span class="CF-button text-right p-0 mt-3 mb-5">
                 <span class="fh mr-3">&#8451;</span>
                 <span class="cs">&#8457;</span>
               </span> --></b-col
@@ -61,11 +58,10 @@
                 :day="forecast.dt | dayConvFull"
                 :main="forecast.weather[0].main"
                 class="fc"
-                :temp="Math.round(forecast.temp.day*10)/10"
-                :evening_temp="Math.round(forecast.temp.eve*10)/10"
+                :temp="Math.round(forecast.temp.day * 10) / 10"
+                :evening_temp="Math.round(forecast.temp.eve * 10) / 10"
               />
             </div>
-      
           </div>
 
           <div class="today mt-md-4 mb-5">
@@ -93,7 +89,9 @@
                     ></b-icon
                   ></span>
 
-                  <span class="sunrise-t font-weight-bold">{{weather.current.sunrise|wkdayConvFull}}</span>
+                  <span class="sunrise-t font-weight-bold">{{
+                    weather.current.sunrise | wkdayConvFull
+                  }}</span>
                 </div>
                 <div class="text-center mt-2">
                   <span class="sunset"
@@ -104,7 +102,9 @@
                     ></b-icon
                   ></span>
 
-                  <span class="sunrise-t font-weight-bold">{{weather.current.sunset|wkdayConvFull}}</span>
+                  <span class="sunrise-t font-weight-bold">{{
+                    weather.current.sunset | wkdayConvFull
+                  }}</span>
                 </div>
               </div>
               <div class="stat visibility">
@@ -182,7 +182,6 @@ import searchBar from "@/components/searchBar.vue";
 import Footer from "@/components/footer.vue";
 import weatherIcon from "@/components/weather-icon.vue";
 import forecast from "@/components/forecast.vue";
-import loader from "@/components/loader.vue";
 
 import { mapGetters, mapActions } from "vuex";
 
@@ -191,7 +190,7 @@ export default {
   data() {
     return {
       tempUnit: false,
-      loading: false,
+      compForecasts:[],
       /*       load:true
        */
     };
@@ -201,21 +200,21 @@ export default {
     weatherIcon,
     forecast,
     Footer,
-    loader,
   },
   methods: {
-    load() {
-      this.loading = true;
-    },
     ...mapActions(["fetchWeather"]),
-    /*   loading(){
-        this.load=false;
-    } */
-  },
-  created() {
+   
+      },
+
+  async created() {
     this.fetchWeather([6.4550575, 3.3941795, "Lagos,Nigeria"]);
+   
   },
-  computed: mapGetters({ weather: "allWeather" }),
+  computed:{...mapGetters({ weather: "allWeather" }),
+  
+  },
+  
+   
 };
 </script>
 <style lang="scss">
@@ -245,8 +244,8 @@ export default {
   right: 0;
   min-height: 100vh;
 
-  h6{
-    font-weight:bolder;
+  h6 {
+    font-weight: bolder;
   }
 }
 

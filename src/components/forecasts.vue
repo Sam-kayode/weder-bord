@@ -8,45 +8,80 @@
         @click="activate(1)"
         :class="{ active: active_el == 1 }"
       >
-        <forecast class="fc" />
+        <forecast
+          :day="weather.daily[0].dt | dayConvFull"
+          :main="weather.daily[0].weather[0].main"
+          class="fc"
+          :temp="Math.round(weather.daily[0].temp.day * 10) / 10"
+          :evening_temp="Math.round(weather.daily[0].temp.eve * 10) / 10"
+        />
       </div>
       <div
         class="mb-4 mx-3"
         @click="activate(2)"
         :class="{ active: active_el == 2 }"
       >
-        <forecast class="fc" />
+        <forecast
+          :day="weather.daily[1].dt | dayConvFull"
+          :main="weather.daily[1].weather[0].main"
+          class="fc"
+          :temp="Math.round(weather.daily[1].temp.day * 10) / 10"
+          :evening_temp="Math.round(weather.daily[1].temp.eve * 10) / 10"
+        />
       </div>
       <div
         class="mb-4 mx-3"
         @click="activate(3)"
         :class="{ active: active_el == 3 }"
       >
-        <forecast class="fc" />
+        <forecast
+          :day="weather.daily[2].dt | dayConvFull"
+          :main="weather.daily[2].weather[0].main"
+          class="fc"
+          :temp="Math.round(weather.daily[2].temp.day * 10) / 10"
+          :evening_temp="Math.round(weather.daily[2].temp.eve * 10) / 10"
+        />
       </div>
       <div
         class="mb-4 mx-3"
         @click="activate(4)"
         :class="{ active: active_el == 4 }"
       >
-        <forecast class="fc" />
+        <forecast
+          :day="weather.daily[3].dt | dayConvFull"
+          :main="weather.daily[3].weather[0].main"
+          class="fc"
+          :temp="Math.round(weather.daily[3].temp.day * 10) / 10"
+          :evening_temp="Math.round(weather.daily[3].temp.eve * 10) / 10"
+        />
       </div>
       <div
         class="mb-4 mx-3"
         @click="activate(5)"
         :class="{ active: active_el == 5 }"
       >
-        <forecast class="fc" />
+        <forecast
+          :day="weather.daily[4].dt | dayConvFull"
+          :main="weather.daily[4].weather[0].main"
+          class="fc"
+          :temp="Math.round(weather.daily[4].temp.day * 10) / 10"
+          :evening_temp="Math.round(weather.daily[4].temp.eve * 10) / 10"
+        />
       </div>
       <div
         class="mb-4 mx-3 pr-3"
         @click="activate(6)"
         :class="{ active: active_el == 6 }"
       >
-        <forecast class="fc" />
+        <forecast
+          :day="weather.daily[5].dt | dayConvFull"
+          :main="weather.daily[5].weather[0].main"
+          class="fc"
+          :temp="Math.round(weather.daily[5].temp.day * 10) / 10"
+          :evening_temp="Math.round(weather.daily[5].temp.eve * 10) / 10"
+        />
       </div>
     </div>
-
     <div class="f-stats mt-3 p-3">
       <div class="f-stat">
         <h5>Wind Stats</h5>
@@ -133,8 +168,8 @@
 </template>
 
 <script>
-import forecast from "@/components/forecast.vue";
-
+import { mapGetters } from "vuex";
+import forecast from "@/components/forecast";
 export default {
   data() {
     return {
@@ -150,6 +185,7 @@ export default {
       this.active_el = el;
     },
   },
+  computed: mapGetters({ weather: "allWeather" }),
 };
 </script>
 <style lang="scss">
@@ -162,14 +198,16 @@ export default {
   display: flex;
   background-color: rgba(207, 207, 207, 0.486);
   position: relative;
-  overflow-x:auto;
+  overflow-x: auto;
 
   scroll-behavior: smooth;
   z-index: 2;
   padding: 30px 0px 10px 0px;
   margin: auto;
 }
-
+.fc{
+  
+}
 .f-stats {
   width: 100%;
   display: grid;
@@ -179,11 +217,11 @@ export default {
 }
 
 .wst-img {
-  width:40px;
+  width: 40px;
 }
 
-.vst-img{
-  width:60px;
+.vst-img {
+  width: 60px;
 }
 
 .f-stat {
@@ -208,6 +246,7 @@ export default {
   svg {
     height: 90px;
   }
+
 
   .min {
     position: relative;
@@ -239,18 +278,18 @@ export default {
   border-radius: 16px;
   .fc {
     background-color: rgba(0, 0, 0, 0.192);
-  }
   
-  .fc:hover{
-       transform: scale(1);
 
+  }
+
+  .fc:hover {
+    transform: scale(1);
   }
 }
 
-.fc:hover{
-   transform: scale(1.1);
+.fc:hover {
+  transform: scale(1.1);
   transition: 0.5s ease-out;
-
 }
 
 .dark {

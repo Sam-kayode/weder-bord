@@ -8,12 +8,20 @@
       />
       <!--   <i class="fa fa-search"></i>
  -->
-      <b-icon icon="search" class="fa fa-search" v-on:click="onSubmit()"></b-icon>
+      <loader v-if="loading" />
+
+      <b-icon
+        icon="search"
+        class="fa fa-search"
+        v-on:click="onSubmit()"
+      ></b-icon>
     </form>
   </div>
 </template>
 
 <script>
+import loader from "@/components/loader.vue";
+
 import { mapActions } from "vuex";
 /*  import axios from 'axios'
  */ export default {
@@ -25,43 +33,50 @@ import { mapActions } from "vuex";
       long: 3.3941795,
       lat: 6.4550575,
       name: "",
+      loading: false,
     };
+  },
+  components: {
+    loader,
   },
   props: {},
   methods: {
     ...mapActions(["fetchWeather"]),
 
     async onSubmit() {
-      
       var location = `${encodeURIComponent(this.location)}`;
       console.log(location);
-      //geocode fetch API
-      /*   try
-       {const response = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${location}&key=a81962bde9cb4591ad703a830a1bf74c&pretty=1`)
-       this.point = response
-      console.log(this.point)
-       }catch(err){console.log(err)}   */
-      /* .then(response => (this.point = response)) */
 
-      let response = await fetch(
-        `https://api.opencagedata.com/geocode/v1/json?q=${location}&key=a81962bde9cb4591ad703a830a1bf74c&pretty=1`
-      );
-      this.point = await response.json();
-      console.log(this.point);
+      this.loading = true;
+      try {
+        let response = await fetch(
+          `https://api.opencagedata.com/geocode/v1/json?q=${location}&key=a81962bde9cb4591ad703a830a1bf74c&pretty=1`
+        );
+        this.point = await response.json();
+        console.log(this.point);
 
-      this.setResults(this.point);
-      /*  .then((result) => {
-          return result.json();
-        })
-        .then(this.setResults, console.log(this.point)); */
+        this.setResults(this.point);
 
-      this.fetchWeather([this.lat, this.long, this.name]);
+        this.fetchWeather([this.lat, this.long, this.name]);
+           setTimeout(this.load
+            , 700);
+      } catch (error) {
+        console.log(error);
+        setTimeout(
+          this.load,
+
+          700
+        );
+      }
     },
     setResults(point) {
       this.lat = point.results[0].geometry.lat;
       this.long = point.results[0].geometry.lng;
       this.name = point.results[0].formatted;
       console.log(this.lat);
+    },
+    load() {
+      this.loading = false;
     },
   },
 };
@@ -129,8 +144,6 @@ form .fa:hover {
   color: white;
   transform: scale(1.15);
 }
-
-
 
 .dark {
   .search-bar {
