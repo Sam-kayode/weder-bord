@@ -1,8 +1,14 @@
 <template>
   <div class="forecast text-center px-3 py-1">
-    <h6 class="font-weight-bold pt-2 pb-0 m-0">{{ day }}</h6>
+    <h6 class="day font-weight-bold pt-2 pb-0 m-0">{{ day }}</h6>
     <div class="showbox">
-      <div class="day"  v-if="(weather.current.dt>=weather.current.sunrise) && (weather.current.dt<=weather.current.sunset) ">
+      <div
+        class="day"
+        v-if="
+          weather.current.dt >= weather.current.sunrise &&
+            weather.current.dt <= weather.current.sunset
+        "
+      >
         <div class="div-icons">
           <Clear v-if="main == 'Clear'" />
           <Clear v-if="main == 'Mist'" />
@@ -14,31 +20,30 @@
           <Snow v-if="main == 'Snow'" />
           <Rain v-if="main == 'Rain'" />
         </div>
-          <div class="font-weight-bold text-center">
-      <p class="p-0 mb-1">{{main}}</p>
+        <div class="font-weight-bold text-center">
+          <p class="p-0 mb-1">{{ main }}</p>
 
-      <span class="">{{temp}}</span>
-      <span class=""><sup>&#8451;</sup></span>
-      <span class="" v-if="tempUnit"><sup>&#8457;</sup></span>
-    </div>
+          <span class="">{{ temp }}</span>
+          <span class=""><sup>&#8451;</sup></span>
+          <span class="" v-if="tempUnit"><sup>&#8457;</sup></span>
+        </div>
       </div>
 
       <div class="night" v-else>
         <!-- cloudy -->
-       <Clouds v-if="main == 'Clouds'" />
+        <Clouds v-if="main == 'Clouds'" />
         <Clouds v-if="main == 'Clear'" />
         <Snow v-if="main == 'Snow'" />
         <Rain v-if="main == 'Rain'" />
-          <div class="font-weight-bold text-center">
-      <p class="p-0 mb-1">{{main}}</p>
+        <div class="font-weight-bold text-center">
+          <p class="p-0 mb-1">{{ main }}</p>
 
-      <span class="">{{evening_temp}}</span>
-      <span class=""><sup>&#8451;</sup></span>
-      <span class="" v-if="tempUnit"><sup>&#8457;</sup></span>
-    </div>
+          <span class="">{{ evening_temp }}</span>
+          <span class=""><sup>&#8451;</sup></span>
+          <span class="" v-if="tempUnit"><sup>&#8457;</sup></span>
+        </div>
       </div>
     </div>
-  
   </div>
 </template>
 <script>
@@ -62,7 +67,7 @@ export default {
     Rain,
   },
   computed: mapGetters({ weather: "allWeather" }),
-  props: ["day","main", "temp", "evening_temp"],
+  props: ["day", "main", "temp", "evening_temp"],
 };
 </script>
 <style lang="scss" scoped>
@@ -70,7 +75,7 @@ export default {
   border-radius: 15px;
   background-color: rgb(255, 255, 255);
   transition: 0.35s ease-out;
-  width:140px;
+  width: 140px;
 }
 $color-sun: #edc951;
 $color-cloud: #00a0b0;
@@ -369,12 +374,19 @@ a {
 @media (max-width: 576px) {
   .forecast {
     transition: 0.35s ease-out;
-  
+    width: 100px;
+    padding: 4px 14px;
+
+    .day {
+      text-align: center;
+      font-size: 14px;
+    }
+
     svg {
       width: 100%;
-      height: 50px;
+      height: 40px;
       padding: 0;
-      margin: auto;
+      margin: 0 auto;
     }
   }
 }

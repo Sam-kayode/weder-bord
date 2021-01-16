@@ -1,5 +1,10 @@
 <template>
-  <div class="fcsts-view"><Forecasts /> <Footer></Footer></div>
+  <div class="fcsts-view">
+    <keep-alive>
+      <Forecasts />
+      <Footer></Footer>
+    </keep-alive>
+  </div>
 </template>
 <script>
 import Forecasts from "@/components/forecasts.vue";

@@ -59,13 +59,13 @@ import { mapActions } from "vuex";
 
         this.fetchWeather([this.lat, this.long, this.name]);
            setTimeout(this.load
-            , 700);
+            , 900);
       } catch (error) {
         console.log(error);
         setTimeout(
           this.load,
 
-          700
+          900
         );
       }
     },

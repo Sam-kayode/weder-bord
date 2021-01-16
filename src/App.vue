@@ -8,6 +8,8 @@
 <script>
 import navbar from "@/components/navbar.vue";
 import toggle from "@/components/toggle.vue";
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
@@ -19,6 +21,8 @@ export default {
     toggle,
   },
   methods: {
+        ...mapActions(["fetchWeather"]),
+
     toggle() {
       if (this.mode === "dark") {
         this.mode = "light";
@@ -27,7 +31,10 @@ export default {
       }
     },
 
-  } 
+  } ,
+   async mounted() {
+    this.fetchWeather([6.4550575, 3.3941795, "Lagos,Nigeria"]);
+  },
  
 };
 </script>

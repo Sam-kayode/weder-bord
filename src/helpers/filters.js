@@ -13,7 +13,7 @@ console.log( )
  // 10 AM
 
 
- return `${time} ,${day}`
+ return `${time} ,${day} (GMT+1)`
 });
 
 Vue.filter("dayConvFull", function(value) {

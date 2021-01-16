@@ -1,7 +1,7 @@
 <template>
   <div class="fcsts-cont">
     <h3 class="mt-4 font-weight-bold">Weather Forecast</h3>
-    <h4 class="font-weight-bold">Lagos, Nigeria</h4>
+    <h5 class="font-weight-bold">{{ weather.name }}</h5>
     <div class="fcsts pr-5 pr-md-0">
       <div
         class="mb-4 mx-3 pl-2"
@@ -16,6 +16,7 @@
           :evening_temp="Math.round(weather.daily[0].temp.eve * 10) / 10"
         />
       </div>
+
       <div
         class="mb-4 mx-3"
         @click="activate(2)"
@@ -82,13 +83,19 @@
         />
       </div>
     </div>
+    <h4 class="font-weight-bold mt-4">Forecast Highlights</h4>
+    <h6 class="mt-3 font-weight-bold">
+      {{ weather.daily[i].dt | dateConvFull }}
+    </h6>
+
     <div class="f-stats mt-3 p-3">
       <div class="f-stat">
         <h5>Wind Stats</h5>
         <img src="@/assets/wind-stat.png" class="wst-img" alt="" />
-        <span class="font-weight-bold w-speed">7.7</span
-        ><span class="unt">km/h</span>
-        <div class="mt-1">WSW</div>
+        <span class="font-weight-bold w-speed">{{
+          Math.round(weather.current.wind_speed * 10) / 10
+        }}</span
+        ><span class="unt">m/s</span>
       </div>
       <div class="f-stat">
         <h5>Sunrise and Sunset</h5>
@@ -102,7 +109,9 @@
             ></b-icon
           ></span>
 
-          <span class="sunrise-t font-weight-bold">6.48pm</span>
+          <span class="sunrise-t font-weight-bold">{{
+            weather.current.sunrise | wkdayConvFull
+          }}</span>
         </div>
         <div class="text-center mt-2">
           <span class="sunset"
@@ -113,15 +122,19 @@
             ></b-icon
           ></span>
 
-          <span class="sunrise-t font-weight-bold">6.48pm</span>
+          <span class="sunrise-t font-weight-bold">{{
+            weather.current.sunset | wkdayConvFull
+          }}</span>
         </div>
       </div>
       <div class="f-stat">
         <h5>Visibility</h5>
         <img src="@/assets/visibility.png" class="vst-img" alt="" />
 
-        <span class="font-weight-bold w-speed">7.7</span
-        ><span class="unt">km</span>
+        <p class="font-weight-bold v-speed">
+          <span>{{ Math.round(weather.current.visibility * 10) / 10000 }}</span
+          ><span class="">km</span>
+        </p>
       </div>
       <div class="f-stat">
         <h5>Humidity</h5>
@@ -129,7 +142,9 @@
           <img src="@/assets/humidity.png" class="wst-img mr-1" alt="" />
         </div>
 
-        <span class="font-weight-bold w-speed">7.7</span
+        <span class="font-weight-bold w-speed">{{
+          weather.current.humidity
+        }}</span
         ><span class="unt">%</span>
       </div>
       <div class="f-stat">
@@ -138,7 +153,7 @@
         <VueSvgGauge
           :start-angle="-110"
           :end-angle="110"
-          :value="UvIndex"
+          :value="weather.current.uvi"
           :separator-step="3"
           :min="0"
           :max="15"
@@ -158,10 +173,12 @@
         </VueSvgGauge>
       </div>
       <div class="f-stat">
-        <h5>Wind Stats</h5>
-        <span class="font-weight-bold w-speed">7.7</span
-        ><span class="unt">km/h</span>
-        <div class="mt-1">WSW</div>
+                  <h6 class="mb-5">Pressure</h6>
+
+                  <span class="font-weight-bold v-speed">{{
+                    weather.current.pressure
+                  }}</span
+                  ><span class="unt">hPa</span>
       </div>
     </div>
   </div>
@@ -173,8 +190,9 @@ import forecast from "@/components/forecast";
 export default {
   data() {
     return {
-      active_el: 0,
+      active_el: 1,
       UvIndex: 7,
+      i: 0,
     };
   },
   components: {
@@ -183,6 +201,7 @@ export default {
   methods: {
     activate(el) {
       this.active_el = el;
+      this.i = el - 1;
     },
   },
   computed: mapGetters({ weather: "allWeather" }),
@@ -205,8 +224,7 @@ export default {
   padding: 30px 0px 10px 0px;
   margin: auto;
 }
-.fc{
-  
+.fc {
 }
 .f-stats {
   width: 100%;
@@ -247,7 +265,6 @@ export default {
     height: 90px;
   }
 
-
   .min {
     position: relative;
     top: 70px;
@@ -278,8 +295,6 @@ export default {
   border-radius: 16px;
   .fc {
     background-color: rgba(0, 0, 0, 0.192);
-  
-
   }
 
   .fc:hover {
@@ -321,5 +336,8 @@ export default {
     font-size: 70px;
     // ...
   }
+}
+.v-speed {
+  font-size: 30px;
 }
 </style>
