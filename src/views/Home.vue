@@ -159,8 +159,8 @@
                   </VueSvgGauge>
                 </div>
                 <div class="stat visibility">
-                  <h6 class="mb-5">Pressure</h6>
-
+                  <h6 class="mb-1">Pressure</h6>
+<img src="@/assets/pressure.png" class="p-img" alt="" />
                   <span class="font-weight-bold w-speed">{{
                     weather.current.pressure
                   }}</span
@@ -306,6 +306,10 @@ export default {
 .vst-img {
   width: 80px;
   height: 60px;
+}
+
+.p-img{
+  width:60px;
 }
 
 .sunrise {

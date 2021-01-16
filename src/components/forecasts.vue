@@ -93,7 +93,8 @@
         <h5>Wind Stats</h5>
         <img src="@/assets/wind-stat.png" class="wst-img" alt="" />
         <span class="font-weight-bold w-speed">{{
-          Math.round(weather.current.wind_speed * 10) / 10
+          Math.round(weather.daily[i]
+.wind_speed * 10) / 10
         }}</span
         ><span class="unt">m/s</span>
       </div>
@@ -108,9 +109,9 @@
               class="h1 sunrise m-0"
             ></b-icon
           ></span>
-
           <span class="sunrise-t font-weight-bold">{{
-            weather.current.sunrise | wkdayConvFull
+            weather.daily[i]
+.sunrise | wkdayConvFull
           }}</span>
         </div>
         <div class="text-center mt-2">
@@ -123,16 +124,17 @@
           ></span>
 
           <span class="sunrise-t font-weight-bold">{{
-            weather.current.sunset | wkdayConvFull
+            weather.daily[i]
+.sunset | wkdayConvFull
           }}</span>
         </div>
       </div>
-      <div class="f-stat">
+      <div class="f-stat" v-if="weather.daily[i].visibility">
         <h5>Visibility</h5>
         <img src="@/assets/visibility.png" class="vst-img" alt="" />
 
         <p class="font-weight-bold v-speed">
-          <span>{{ Math.round(weather.current.visibility * 10) / 10000 }}</span
+          <span>{{ Math.round(weather.daily[i].visibility * 10) / 10000 }}</span
           ><span class="">km</span>
         </p>
       </div>
@@ -143,7 +145,8 @@
         </div>
 
         <span class="font-weight-bold w-speed">{{
-          weather.current.humidity
+          weather.daily[i]
+.humidity
         }}</span
         ><span class="unt">%</span>
       </div>
@@ -153,7 +156,8 @@
         <VueSvgGauge
           :start-angle="-110"
           :end-angle="110"
-          :value="weather.current.uvi"
+          :value="weather.daily[i]
+.uvi"
           :separator-step="3"
           :min="0"
           :max="15"
@@ -173,10 +177,11 @@
         </VueSvgGauge>
       </div>
       <div class="f-stat">
-                  <h6 class="mb-5">Pressure</h6>
-
+                  <h6 class="mb-1">Pressure</h6>
+<img src="@/assets/pressure.png" class="p-img" alt="" />
                   <span class="font-weight-bold v-speed">{{
-                    weather.current.pressure
+                    weather.daily[i]
+.pressure
                   }}</span
                   ><span class="unt">hPa</span>
       </div>
@@ -240,6 +245,10 @@ export default {
 
 .vst-img {
   width: 60px;
+}
+
+.p-img{
+  width:60px;
 }
 
 .f-stat {
