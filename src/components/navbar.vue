@@ -41,9 +41,9 @@
         <li class="navlink">
           <router-link to="/">Home</router-link>
         </li>
-        <li class="navlink">
-          <router-link to="/Gallery/all">About</router-link>
-        </li>
+         <li class="navlink">
+            <router-link to="/Forecast">Forecast</router-link>
+          </li>
       </ul>
     </div>
 
