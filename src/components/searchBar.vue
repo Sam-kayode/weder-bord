@@ -16,6 +16,9 @@
         v-on:click="onSubmit()"
       ></b-icon>
     </form>
+    <div class="error" v-if="error == 'Invalid location'">
+      <p class="text-danger">{{ error }}</p>
+    </div>
   </div>
 </template>
 
@@ -34,6 +37,7 @@ import { mapActions } from "vuex";
       lat: 6.4550575,
       name: "",
       loading: false,
+      error: "",
     };
   },
   components: {
@@ -58,15 +62,15 @@ import { mapActions } from "vuex";
         this.setResults(this.point);
 
         this.fetchWeather([this.lat, this.long, this.name]);
-           setTimeout(this.load
-            , 900);
+
+        setTimeout(this.load, 900);
       } catch (error) {
         console.log(error);
-        setTimeout(
-          this.load,
+        this.error = "Invalid location";
+        console.log(this.error);
+        setTimeout(this.load, 900);
 
-          900
-        );
+        setTimeout(this.mistake, 4000);
       }
     },
     setResults(point) {
@@ -78,6 +82,9 @@ import { mapActions } from "vuex";
     load() {
       this.loading = false;
     },
+    mistake(){
+      this.error=null
+    }
   },
 };
 </script>
@@ -145,6 +152,15 @@ form .fa:hover {
   transform: scale(1.15);
 }
 
+.error p{
+  background-color:black;
+  width: 150px;
+  text-align:center;
+  font-size:17px;
+  margin:auto;
+  border-radius:15px;
+  margin-bottom:-26px;
+}
 .dark {
   .search-bar {
     border: 4px solid rgba(255, 255, 255, 0.427);

@@ -1,9 +1,7 @@
 <template>
   <div class="fcsts-view">
-    <keep-alive>
       <Forecasts />
       <Footer></Footer>
-    </keep-alive>
   </div>
 </template>
 <script>
