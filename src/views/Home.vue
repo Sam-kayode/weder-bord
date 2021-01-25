@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-      <b-container fluid class="board">
+      <b-container fluid class="board" v-if="weather" >
         <b-row>
           <b-col class="current pt-2 pt-md-1 my-4" md="4">
             <search-bar class="mt-5"></search-bar>
@@ -201,6 +201,7 @@ export default {
     weatherIcon,
     forecast,
     Footer,
+   
   },
   methods: {
     ...mapActions(["fetchWeather"]),
@@ -209,6 +210,8 @@ export default {
 };
 </script>
 <style lang="scss">
+
+
 .temp-value {
   font-size: 100px;
   font-family: sans-serif;
