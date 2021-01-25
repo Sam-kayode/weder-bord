@@ -93,8 +93,7 @@
         <h5>Wind Stats</h5>
         <img src="@/assets/wind-stat.png" class="wst-img" alt="" />
         <span class="font-weight-bold w-speed">{{
-          Math.round(weather.daily[i]
-.wind_speed * 10) / 10
+          Math.round(weather.daily[i].wind_speed * 10) / 10
         }}</span
         ><span class="unt">m/s</span>
       </div>
@@ -110,8 +109,7 @@
             ></b-icon
           ></span>
           <span class="sunrise-t font-weight-bold">{{
-            weather.daily[i]
-.sunrise | wkdayConvFull
+            weather.daily[i].sunrise | wkdayConvFull
           }}</span>
         </div>
         <div class="text-center mt-2">
@@ -124,8 +122,7 @@
           ></span>
 
           <span class="sunrise-t font-weight-bold">{{
-            weather.daily[i]
-.sunset | wkdayConvFull
+            weather.daily[i].sunset | wkdayConvFull
           }}</span>
         </div>
       </div>
@@ -145,8 +142,7 @@
         </div>
 
         <span class="font-weight-bold w-speed">{{
-          weather.daily[i]
-.humidity
+          weather.daily[i].humidity
         }}</span
         ><span class="unt">%</span>
       </div>
@@ -156,8 +152,7 @@
         <VueSvgGauge
           :start-angle="-110"
           :end-angle="110"
-          :value="weather.daily[i]
-.uvi"
+          :value="weather.daily[i].uvi"
           :separator-step="3"
           :min="0"
           :max="15"
@@ -172,18 +167,19 @@
           <span class="max1">9</span>
           <span class="max2">12</span>
           <div class="inner-text">
-            <span> <b>7</b></span>
+            <span class="uv-value">
+              <b>{{ Math.round(weather.daily[i].uvi) }}</b></span
+            >
           </div>
         </VueSvgGauge>
       </div>
       <div class="f-stat">
-                  <h6 class="mb-1">Pressure</h6>
-<img src="@/assets/pressure.png" class="p-img" alt="" />
-                  <span class="font-weight-bold v-speed">{{
-                    weather.daily[i]
-.pressure
-                  }}</span
-                  ><span class="unt">hPa</span>
+        <h6 class="mb-1">Pressure</h6>
+        <img src="@/assets/pressure.png" class="p-img" alt="" />
+        <span class="font-weight-bold v-speed">{{
+          weather.daily[i].pressure
+        }}</span
+        ><span class="unt">hPa</span>
       </div>
     </div>
   </div>
@@ -227,7 +223,7 @@ export default {
   scroll-behavior: smooth;
   z-index: 2;
   padding: 30px 0px 10px 0px;
-  margin: auto;
+  justify-content: center;
 }
 .fc {
 }
@@ -247,8 +243,12 @@ export default {
   width: 60px;
 }
 
-.p-img{
-  width:60px;
+.p-img {
+  width: 60px;
+}
+
+.uv-value {
+  font-size: 45px !important;
 }
 
 .f-stat {
